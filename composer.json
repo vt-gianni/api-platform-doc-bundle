@@ -1,0 +1,36 @@
+{
+    "name": "vtgianni/apiplatformdoc-bundle",
+    "description": "A Symfony bundle to generate API Platform documentation.",
+    "type": "symfony-bundle",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Gianni GIUDICE",
+            "email": "giannigiudice.fr@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "require": {
+        "php": ">=7.4",
+        "symfony/framework-bundle": "^5.4",
+        "api-platform/core": "^2.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "VTGianni\\ApiPlatformDocBundle\\": "src/"
+        }
+    },
+    "extra": {
+        "symfony": {
+            "allow-contrib": false,
+            "require": "5.4.*"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "symfony/flex": true,
+            "symfony/runtime": true
+        }
+    }
+}
