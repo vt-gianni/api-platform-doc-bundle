@@ -6,6 +6,28 @@
     {% for resource in apiResources %}
         <h2>{{ resource.shortName }}</h2>
 
-        {# Afficher les détails de la ressource ici... #}
+        <h3>Item Operations</h3>
+
+        {% for key, operation in resource.itemOperations %}
+            <p><b>{{ key }}</b></p>
+            <p>
+                <b>Method:</b> {{ operation.method }}<br>
+                <b>Access Control:</b> {{ operation.method }}<br>
+                <b>Description:</b> {{ operation.openapi_context.description }}<br>
+                <b>Method:</b> {{ operation.method }}<br>
+            </p>
+        {% endfor %}
+
+        <h3>Collection Operations</h3>
+
+        {% for key, operation in resource.collectionOperations %}
+            <p><b>{{ key }}</b></p>
+            <p>
+                <b>Method:</b> {{ operation.method }}<br>
+                <b>Access Control:</b> {{ operation.method }}<br>
+                <b>Description:</b> {{ operation.openapi_context.description }}<br>
+                <b>Method:</b> {{ operation.method }}<br>
+            </p>
+        {% endfor %}
     {% endfor %}
 {% endblock %}
