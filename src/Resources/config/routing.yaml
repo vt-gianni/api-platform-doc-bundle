@@ -1,3 +1,3 @@
 api_platform_doc:
-  path: '%env(API_PLATFORM_DOC_PATH)%'
-  controller: VTGianni\ApiPlatformDocBundle\Controller\ApiPlatformDocController::index
+  path: '/%api_platform_doc_path%'
+    controller: VTGianni\ApiPlatformDocBundle\Controller\ApiPlatformDocController::index
