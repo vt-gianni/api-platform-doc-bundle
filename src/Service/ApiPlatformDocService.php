@@ -1,21 +1,19 @@
 <?php
 
-
 namespace VTGianni\ApiPlatformDocBundle\Service;
 
-
-use ApiPlatform\Core\Metadata\Resource\Factory\ResourceMetadataFactoryInterface;
+use ApiPlatform\Core\Metadata\Resource\Factory\AnnotationResourceMetadataFactory;
+use ApiPlatform\Core\Metadata\Resource\Factory\AnnotationResourceNameCollectionFactory;
 use ApiPlatform\Exception\ResourceClassNotFoundException;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class ApiPlatformDocService
 {
-    private $bag;
-    private $resourceMetadataFactory;
+    private AnnotationResourceNameCollectionFactory $resourceNameCollectionFactory;
+    private AnnotationResourceMetadataFactory $resourceMetadataFactory;
 
-    public function __construct(ParameterBagInterface $bag, ResourceMetadataFactoryInterface $resourceMetadataFactory)
+    public function __construct(AnnotationResourceNameCollectionFactory $resourceNameCollectionFactory, AnnotationResourceMetadataFactory $resourceMetadataFactory)
     {
-        $this->bag = $bag;
+        $this->resourceNameCollectionFactory = $resourceNameCollectionFactory;
         $this->resourceMetadataFactory = $resourceMetadataFactory;
     }
 
@@ -25,15 +23,10 @@ class ApiPlatformDocService
      */
     public function getMetaData(): array
     {
-        $resourceClassNames = $this->bag->get('api_platform.resource_class_directories');
-
+        $resourceNames = $this->resourceNameCollectionFactory->create();
         $resources = [];
-        foreach ($resourceClassNames as $resourceClassName) {
-            try {
-                $resources[$resourceClassName] = $this->resourceMetadataFactory->create($resourceClassName);
-            } catch (ResourceClassNotFoundException $e) {
-                // Ignorer si la classe n'est pas une ressource API Platform
-            }
+        foreach ($resourceNames as $resourceName) {
+            $resources[$resourceName] = $this->resourceMetadataFactory->create($resourceName);
         }
         return $resources;
     }
