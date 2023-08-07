@@ -2,16 +2,16 @@
 
 namespace VTGianni\ApiPlatformDocBundle\Service;
 
-use ApiPlatform\Core\Metadata\Resource\Factory\AnnotationResourceMetadataFactory;
-use ApiPlatform\Core\Metadata\Resource\Factory\AnnotationResourceNameCollectionFactory;
 use ApiPlatform\Exception\ResourceClassNotFoundException;
+use ApiPlatform\Metadata\Resource\Factory\ResourceNameCollectionFactoryInterface;
+use ApiPlatform\Core\Metadata\Resource\Factory\ResourceMetadataFactoryInterface;
 
 class ApiPlatformDocService
 {
-    private AnnotationResourceNameCollectionFactory $resourceNameCollectionFactory;
-    private AnnotationResourceMetadataFactory $resourceMetadataFactory;
+    private $resourceNameCollectionFactory;
+    private $resourceMetadataFactory;
 
-    public function __construct(AnnotationResourceNameCollectionFactory $resourceNameCollectionFactory, AnnotationResourceMetadataFactory $resourceMetadataFactory)
+    public function __construct(ResourceNameCollectionFactoryInterface $resourceNameCollectionFactory, ResourceMetadataFactoryInterface $resourceMetadataFactory)
     {
         $this->resourceNameCollectionFactory = $resourceNameCollectionFactory;
         $this->resourceMetadataFactory = $resourceMetadataFactory;
