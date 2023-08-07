@@ -27,11 +27,14 @@ class ApiPlatformDocService
     {
         $resourceClassNames = $this->bag->get('api_platform.resource_class_directories');
 
-        $apiResources = [];
+        $resources = [];
         foreach ($resourceClassNames as $resourceClassName) {
-            $resourceMetadata = $this->resourceMetadataFactory->create($resourceClassName);
-            $apiResources[] = $resourceMetadata;
+            try {
+                $resources[$resourceClassName] = $this->resourceMetadataFactory->create($resourceClassName);
+            } catch (ResourceClassNotFoundException $e) {
+                // Ignorer si la classe n'est pas une ressource API Platform
+            }
         }
-        return $apiResources;
+        return $resources;
     }
 }
