@@ -23,7 +23,6 @@ class ApiPlatformDocController extends AbstractController
      */
     public function index(): Response
     {
-        dd($this->service->getMetaData());
         return $this->render('@ApiPlatformDoc/index.html.twig', [
             'resources' => $this->service->getMetaData()
         ]);
