@@ -35,6 +35,8 @@ class ApiPlatformDocService
 
         $allRoutes = $this->router->getRouteCollection();
 
+        dd($allRoutes);
+
         foreach ($resourceNames as $resourceName) {
             $resourceMetadata = $this->resourceMetadataFactory->create($resourceName);
 
