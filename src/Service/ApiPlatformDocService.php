@@ -48,19 +48,21 @@ class ApiPlatformDocService
             foreach ($resourceMetadata->getItemOperations() as $operationName => $operation) {
                 $resourceArray['itemOperations'][$operationName] = (array) $operation;
                 foreach ($allRoutes->all() as $route) {
-                    dump($route);
-                    if (strpos($route->getPath(), $resourceName) !== false) {
-                        $resourceArray['itemOperations'][$operationName]['route'] = $route->getPath();
+                    foreach ($route->getMethods() as $method) {
+                        if ($method === $resourceName) {
+                            $resourceArray['itemOperations'][$operationName]['route'] = $route->getPath();
+                        }
                     }
                 }
-                dd('end');
             }
 
             foreach ($resourceMetadata->getCollectionOperations() as $operationName => $operation) {
                 $resourceArray['collectionOperations'][$operationName] = (array) $operation;
                 foreach ($allRoutes as $routeName => $route) {
-                    if (strpos($route->getPath(), $resourceName) !== false) {
-                        $resourceArray['collectionOperations'][$operationName]['route'] = $route->getPath();
+                    foreach ($route->getMethods() as $method) {
+                        if ($method === $resourceName) {
+                            $resourceArray['collectionOperations'][$operationName]['route'] = $route->getPath();
+                        }
                     }
                 }
             }
