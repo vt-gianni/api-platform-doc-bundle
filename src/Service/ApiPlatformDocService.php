@@ -38,28 +38,36 @@ class ApiPlatformDocService
         foreach ($resourceNames as $resourceName) {
             $resourceMetadata = $this->resourceMetadataFactory->create($resourceName);
 
+            $resourceArray = [
+                'shortName' => $resourceMetadata->getShortName(),
+                'description' => $resourceMetadata->getDescription(),
+                'itemOperations' => [],
+                'collectionOperations' => []
+            ];
+
             foreach ($resourceMetadata->getItemOperations() as $operationName => $operation) {
+                $resourceArray['itemOperations'][$operationName] = (array) $operation;
                 foreach ($allRoutes as $routeName => $route) {
                     if (strpos($route->getPath(), $resourceName) !== false) {
-                        // Ici, nous vérifions simplement si le chemin de la route contient le nom de la ressource.
-                        // Vous pouvez adapter la logique pour mieux correspondre à vos besoins.
-                        $resourceMetadata->getItemOperations()[$operationName]['route'] = $route->getPath();
+                        $resourceArray['itemOperations'][$operationName]['route'] = $route->getPath();
                     }
                 }
             }
 
             foreach ($resourceMetadata->getCollectionOperations() as $operationName => $operation) {
+                $resourceArray['collectionOperations'][$operationName] = (array) $operation;
                 foreach ($allRoutes as $routeName => $route) {
                     if (strpos($route->getPath(), $resourceName) !== false) {
-                        $resourceMetadata->getCollectionOperations()[$operationName]['route'] = $route->getPath();
+                        $resourceArray['collectionOperations'][$operationName]['route'] = $route->getPath();
                     }
                 }
             }
 
-            $resources[$resourceName] = $resourceMetadata;
+            $resources[$resourceName] = $resourceArray;
         }
 
         return $resources;
     }
+
 
 }
