@@ -32,24 +32,37 @@ class ApiPlatformDocService
     {
         $resourceNames = $this->resourceNameCollectionFactory->create();
         $resources = [];
+
         foreach ($resourceNames as $resourceName) {
             $resourceMetadata = $this->resourceMetadataFactory->create($resourceName);
 
-            // Get collection operations routes
-            $collectionOperations = $resourceMetadata->getCollectionOperations();
-            foreach ($collectionOperations as $operationName => $operation) {
-                $routeName = $this->routeNameResolver->getRouteName($resourceName, $operationName);
-                $resources[$resourceName]['routes']['collection'][$operationName] = $this->router->generate($routeName);
+            $routes = [];
+
+            foreach ($resourceMetadata->getCollectionOperations() as $operationName => $operation) {
+                try {
+                    $routeName = $this->routeNameResolver->getRouteName($resourceName, true);
+                    $routes['collection'][$operationName] = $this->router->generate($routeName);
+                } catch (\Exception $e) {
+                    // Si la route ne peut pas être résolue, ignorez simplement cette opération spécifique.
+                }
             }
 
-            // Get item operations routes
-            $itemOperations = $resourceMetadata->getItemOperations();
-            foreach ($itemOperations as $operationName => $operation) {
-                $routeName = $this->routeNameResolver->getRouteName($resourceName, $operationName);
-                $resources[$resourceName]['routes']['item'][$operationName] = $this->router->generate($routeName);
+            foreach ($resourceMetadata->getItemOperations() as $operationName => $operation) {
+                try {
+                    $routeName = $this->routeNameResolver->getRouteName($resourceName, false);
+                    $routes['item'][$operationName] = $this->router->generate($routeName);
+                } catch (\Exception $e) {
+                    // Si la route ne peut pas être résolue, ignorez simplement cette opération spécifique.
+                }
             }
+
+
+            $resources[$resourceName] = [
+                'metadata' => $resourceMetadata,
+                'routes' => $routes
+            ];
         }
+
         return $resources;
     }
-
 }
