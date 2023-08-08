@@ -2,36 +2,48 @@
 
 {% block body %}
     {% for resource in resources %}
-        <h2>{{ resource.shortName }}</h2>
+        <div style="margin: 50px 0">
+            <h2>{{ resource.shortName }}</h2>
 
-        <h3>Item Operations</h3>
+            <h3 style="font-weight: normal; margin-top: 30px;">Item Operations</h3>
 
-        <hr>
+            <hr>
 
-        {% for key, operation in resource.itemOperations %}
-            <div class="margin: 30px 0;">
-                <p><b>{{ key }}</b></p>
-                <p>
-                    <b>Method:</b> {{ operation.method }}<br>
-                    <b>Route:</b> {{ operation.route }}<br>
-                    <b>Description:</b> {{ operation.openapi_context.description }}<br>
-                </p>
-            </div>
-        {% endfor %}
+            {% for key, operation in resource.itemOperations %}
+                <div class="margin: 30px 0;">
+                    <p>{{ operation.openapi_context.description }}</p>
+                    <div style="display: flex; align-items: center;">
+                        <div style="background: #77A6F7; padding: 10px 20px; border-radius: 10px; color: white; margin-right: 15px;">{{ operation.method }}</div>
+                        <p>{{ operation.route }}</p>
+                    </div>
+{#                    <p><b>{{ key }}</b></p>#}
+{#                    <p>#}
+{#                        <b>Method:</b> {{ operation.method }}<br>#}
+{#                        <b>Route:</b> {{ operation.route }}<br>#}
+{#                        <b>Description:</b> {{ operation.openapi_context.description }}<br>#}
+{#                    </p>#}
+                </div>
+            {% endfor %}
 
-        <h3>Collection Operations</h3>
+            <h3 style="font-weight: normal; margin-top: 30px;">Collection Operations</h3>
 
-        <hr>
+            <hr>
 
-        {% for key, operation in resource.collectionOperations %}
-            <div class="margin: 30px 0;">
-                <p><b>{{ key }}</b></p>
-                <p>
-                    <b>Method:</b> {{ operation.method }}<br>
-                    <b>Route:</b> {{ operation.route }}<br>
-                    <b>Description:</b> {{ operation.openapi_context.description }}<br>
-                </p>
-            </div>
-        {% endfor %}
+            {% for key, operation in resource.collectionOperations %}
+                <div class="margin: 30px 0;">
+                    <p>{{ operation.openapi_context.description }}</p>
+                    <div style="display: flex; align-items: center;">
+                        <div style="background: #77A6F7; padding: 10px 20px; border-radius: 10px; color: white; margin-right: 15px;">{{ operation.method }}</div>
+                        <p>{{ operation.route }}</p>
+                    </div>
+                    {#                    <p><b>{{ key }}</b></p>#}
+                    {#                    <p>#}
+                    {#                        <b>Method:</b> {{ operation.method }}<br>#}
+                    {#                        <b>Route:</b> {{ operation.route }}<br>#}
+                    {#                        <b>Description:</b> {{ operation.openapi_context.description }}<br>#}
+                    {#                    </p>#}
+                </div>
+            {% endfor %}
+        </div>
     {% endfor %}
 {% endblock %}
