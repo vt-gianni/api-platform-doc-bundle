@@ -47,8 +47,7 @@ class ApiPlatformDocService
 
             foreach ($resourceMetadata->getItemOperations() as $operationName => $operation) {
                 $resourceArray['itemOperations'][$operationName] = (array) $operation;
-                foreach ($allRoutes as $routeName => $route) {
-                    dd($route);
+                foreach ($allRoutes->all() as $route) {
                     if (strpos($route->getPath(), $resourceName) !== false) {
                         $resourceArray['itemOperations'][$operationName]['route'] = $route->getPath();
                     }
