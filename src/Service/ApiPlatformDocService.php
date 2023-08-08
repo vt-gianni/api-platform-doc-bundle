@@ -43,16 +43,14 @@ class ApiPlatformDocService
                     $routeName = $this->routeNameResolver->getRouteName($resourceName, true);
                     $routes['collection'][$operationName] = $this->router->generate($routeName);
                 } catch (\Exception $e) {
-                    // Si la route ne peut pas être résolue, ignorez simplement cette opération spécifique.
                 }
             }
 
             foreach ($resourceMetadata->getItemOperations() as $operationName => $operation) {
                 try {
-                    $routeName = $this->routeNameResolver->getRouteName($resourceName, false);
+                    $routeName = $this->routeNameResolver->getRouteName($resourceName, true);
                     $routes['item'][$operationName] = $this->router->generate($routeName);
                 } catch (\Exception $e) {
-                    // Si la route ne peut pas être résolue, ignorez simplement cette opération spécifique.
                 }
             }
 
