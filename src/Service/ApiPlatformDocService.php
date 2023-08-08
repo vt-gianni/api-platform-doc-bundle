@@ -50,7 +50,7 @@ class ApiPlatformDocService
                 foreach ($allRoutes->all() as $route) {
                     foreach ($route->getMethods() as $method) {
                         if ($method === $operationName && strpos($route->getDefault('_api_operation_name'), 'collection')  === false) {
-                            $resourceArray['itemOperations'][$operationName]['route'] = $route->getPath();
+                            $resourceArray['itemOperations'][$operationName]['route'] = str_replace('.{_format}', '', $route->getPath());
                         }
                     }
                 }
@@ -61,7 +61,7 @@ class ApiPlatformDocService
                 foreach ($allRoutes as $routeName => $route) {
                     foreach ($route->getMethods() as $method) {
                         if ($method === $operationName && strpos($route->getDefault('_api_operation_name'), 'collection')  !== false) {
-                            $resourceArray['collectionOperations'][$operationName]['route'] = $route->getPath();
+                            $resourceArray['collectionOperations'][$operationName]['route'] = str_replace('.{_format}', '', $route->getPath());
                         }
                     }
                 }
