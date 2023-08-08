@@ -33,34 +33,33 @@ class ApiPlatformDocService
         $resourceNames = $this->resourceNameCollectionFactory->create();
         $resources = [];
 
+        $allRoutes = $this->router->getRouteCollection();
+
         foreach ($resourceNames as $resourceName) {
             $resourceMetadata = $this->resourceMetadataFactory->create($resourceName);
 
-            $routes = [];
+            foreach ($resourceMetadata->getItemOperations() as $operationName => $operation) {
+                foreach ($allRoutes as $routeName => $route) {
+                    if (strpos($route->getPath(), $resourceName) !== false) {
+                        // Ici, nous vérifions simplement si le chemin de la route contient le nom de la ressource.
+                        // Vous pouvez adapter la logique pour mieux correspondre à vos besoins.
+                        $resourceMetadata->getItemOperations()[$operationName]['route'] = $route->getPath();
+                    }
+                }
+            }
 
             foreach ($resourceMetadata->getCollectionOperations() as $operationName => $operation) {
-                try {
-                    $routeName = $this->routeNameResolver->getRouteName($resourceName, true);
-                    $routes['collection'][$operationName] = $this->router->generate($routeName);
-                } catch (\Exception $e) {
+                foreach ($allRoutes as $routeName => $route) {
+                    if (strpos($route->getPath(), $resourceName) !== false) {
+                        $resourceMetadata->getCollectionOperations()[$operationName]['route'] = $route->getPath();
+                    }
                 }
             }
 
-            foreach ($resourceMetadata->getItemOperations() as $operationName => $operation) {
-                try {
-                    $routeName = $this->routeNameResolver->getRouteName($resourceName, true);
-                    $routes['item'][$operationName] = $this->router->generate($routeName);
-                } catch (\Exception $e) {
-                }
-            }
-
-
-            $resources[$resourceName] = [
-                'metadata' => $resourceMetadata,
-                'routes' => $routes
-            ];
+            $resources[$resourceName] = $resourceMetadata;
         }
 
         return $resources;
     }
+
 }
