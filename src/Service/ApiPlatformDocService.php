@@ -49,6 +49,7 @@ class ApiPlatformDocService
                 $resourceArray['itemOperations'][$operationName] = (array) $operation;
                 foreach ($allRoutes->all() as $route) {
                     foreach ($route->getMethods() as $method) {
+                        dd($route);
                         if ($method === $operationName) {
                             $resourceArray['itemOperations'][$operationName]['route'] = $route->getPath();
                         }
