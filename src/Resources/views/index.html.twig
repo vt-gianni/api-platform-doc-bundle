@@ -11,7 +11,7 @@
 
             {% for key, operation in resource.itemOperations %}
                 <div style="margin: 30px 0; padding-bottom: 30px; border-bottom: 1px dashed;">
-                    <p style="font-style: italic">{{ operation.openapi_context.description }}</p>
+                    <p style="font-style: italic">{% if operation.openapi_context is defined %}{{ operation.openapi_context.description }}{% endif %}</p>
                     <div style="display: flex; align-items: center;">
                         <div style="background: {% if operation.method == 'GET' %}#77A6F7{% elseif operation.method == 'PUT' %}#FFCB6D{% elseif operation.method == 'POST' %}#B8EC65{% elseif operation.method == 'DELETE' %}#FF7B6D{% endif %};
                         padding: 8px 20px; border-radius: 10px; color: white; margin-right: 15px;">{{ operation.method }}</div>
@@ -32,7 +32,7 @@
 
             {% for key, operation in resource.collectionOperations %}
                 <div style="margin: 30px 0; padding-bottom: 30px; border-bottom: 1px dashed;">
-                    <p style="font-style: italic">{{ operation.openapi_context.description }}</p>
+                    <p style="font-style: italic">{% if operation.openapi_context is defined %}{{ operation.openapi_context.description }}{% endif %}</p>
                     <div style="display: flex; align-items: center;">
                         <div style="background: {% if operation.method == 'GET' %}#77A6F7{% elseif operation.method == 'PUT' %}#FFCB6D{% elseif operation.method == 'POST' %}#B8EC65{% elseif operation.method == 'DELETE' %}#FF7B6D{% endif %};
                         padding: 8px 20px; border-radius: 10px; color: white; margin-right: 15px;">{{ operation.method }}</div>
