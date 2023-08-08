@@ -48,10 +48,12 @@ class ApiPlatformDocService
             foreach ($resourceMetadata->getItemOperations() as $operationName => $operation) {
                 $resourceArray['itemOperations'][$operationName] = (array) $operation;
                 foreach ($allRoutes->all() as $route) {
+                    dump($route->getPath());
                     if (strpos($route->getPath(), $resourceName) !== false) {
                         $resourceArray['itemOperations'][$operationName]['route'] = $route->getPath();
                     }
                 }
+                dd('end');
             }
 
             foreach ($resourceMetadata->getCollectionOperations() as $operationName => $operation) {
