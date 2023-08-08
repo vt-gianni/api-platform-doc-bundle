@@ -35,8 +35,6 @@ class ApiPlatformDocService
 
         $allRoutes = $this->router->getRouteCollection();
 
-        dd($allRoutes);
-
         foreach ($resourceNames as $resourceName) {
             $resourceMetadata = $this->resourceMetadataFactory->create($resourceName);
 
@@ -50,6 +48,7 @@ class ApiPlatformDocService
             foreach ($resourceMetadata->getItemOperations() as $operationName => $operation) {
                 $resourceArray['itemOperations'][$operationName] = (array) $operation;
                 foreach ($allRoutes as $routeName => $route) {
+                    dd($route);
                     if (strpos($route->getPath(), $resourceName) !== false) {
                         $resourceArray['itemOperations'][$operationName]['route'] = $route->getPath();
                     }
