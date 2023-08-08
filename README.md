@@ -1,6 +1,6 @@
-<!--<p align="center">
-  <img src="asset/new_logo.png" width="250" title="Logo" alt="Logo">
-</p>-->
+<p align="center">
+  <img src="logo.png" width="250" title="Logo" alt="Logo">
+</p>
 
 # About
 
