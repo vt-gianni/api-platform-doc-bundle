@@ -5,9 +5,13 @@
     <title>{% block title %}API Documentation{% endblock %}</title>
     <!-- Vous pouvez ajouter des feuilles de style CSS ou des scripts JavaScript ici -->
 </head>
-<body>
-<div class="container">
-    {% block body %}{% endblock %}
-</div>
+<body style="margin: 0; padding: 0; font-family: Roboto, sans-serif">
+    <div style="background: #77A6F7; padding: 50px 0;">
+        <h1 style="text-align: center; color: white;">ApiPlatformDoc</h1>
+    </div>
+
+    <div style="margin: auto; max-width: 1200px; padding: 50px 0;">
+        {% block body %}{% endblock %}
+    </div>
 </body>
 </html>
