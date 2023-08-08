@@ -12,9 +12,8 @@
             <p><b>{{ key }}</b></p>
             <p>
                 <b>Method:</b> {{ operation.method }}<br>
-                <b>Access Control:</b> {{ operation.method }}<br>
+                <b>Route:</b> {{ operation.route }}<br>
                 <b>Description:</b> {{ operation.openapi_context.description }}<br>
-                <b>Method:</b> {{ operation.method }}<br>
             </p>
         {% endfor %}
 
@@ -24,9 +23,8 @@
             <p><b>{{ key }}</b></p>
             <p>
                 <b>Method:</b> {{ operation.method }}<br>
-                <b>Access Control:</b> {{ operation.method }}<br>
+                <b>Route:</b> {{ operation.route }}<br>
                 <b>Description:</b> {{ operation.openapi_context.description }}<br>
-                <b>Method:</b> {{ operation.method }}<br>
             </p>
         {% endfor %}
     {% endfor %}
