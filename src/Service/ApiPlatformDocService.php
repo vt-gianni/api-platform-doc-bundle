@@ -49,7 +49,7 @@ class ApiPlatformDocService
                 $resourceArray['itemOperations'][$operationName] = (array) $operation;
                 foreach ($allRoutes->all() as $route) {
                     foreach ($route->getMethods() as $method) {
-                        if ($method === $resourceName) {
+                        if ($method === $operationName) {
                             $resourceArray['itemOperations'][$operationName]['route'] = $route->getPath();
                         }
                     }
@@ -60,7 +60,7 @@ class ApiPlatformDocService
                 $resourceArray['collectionOperations'][$operationName] = (array) $operation;
                 foreach ($allRoutes as $routeName => $route) {
                     foreach ($route->getMethods() as $method) {
-                        if ($method === $resourceName) {
+                        if ($method === $operationName) {
                             $resourceArray['collectionOperations'][$operationName]['route'] = $route->getPath();
                         }
                     }
